@@ -1,0 +1,48 @@
+AddDefaultCharset UTF-8
+DirectoryIndex index.html index.php
+Options All -Indexes
+
+#<FilesMatch ".(flv|gif|jpg|jpeg|png|ico|swf|js|css|pdf)$">
+#Header set Cache-Control "max-age=2592000"
+#</FilesMatch>
+
+# compress text, html, javascript, css, xml:
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-javascript
+
+php_flag display_startup_errors off
+php_flag display_errors off
+php_flag html_errors off
+php_flag log_errors on
+php_flag track_errors on
+php_value error_reporting 2047
+php_value date.timezone 'Asia/Shanghai'
+php_value error_log runtime/php_error_log
+
+#Error page
+ErrorDocument 400 'Ooops, <font color=red>400</font>'
+ErrorDocument 401 'Ooops, <font color=red>401</font>'
+ErrorDocument 402 'Ooops, <font color=red>402</font>'
+ErrorDocument 403 'Ooops, <font color=red>403</font>'
+ErrorDocument 404 'Ooops, <font color=red>404</font>'
+ErrorDocument 500 'Ooops, Error !'
+
+<Limit GET POST PUT DELETE>
+Order Deny,Allow
+Deny from All
+Allow from 127.0.0. 192.168.
+</Limit>
+
+#Rewrite
+RewriteEngine On
+RewriteBase /
+
+#Public statics
+#RewriteRule ^static/public/(.*?)$ /studio/project/framework/static/$1 [NC,L]
